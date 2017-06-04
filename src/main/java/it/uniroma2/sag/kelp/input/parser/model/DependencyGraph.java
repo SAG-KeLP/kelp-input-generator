@@ -23,6 +23,7 @@ public class DependencyGraph {
 	private String parserVersion;
 	private List<DGRelation> relations;
 	private DGRelation root;
+	private List<DGNode> nodes;
 
 	public String getSentence() {
 		return sentence;
@@ -62,5 +63,21 @@ public class DependencyGraph {
 
 	public void setRoot(DGRelation root) {
 		this.root = root;
+	}
+
+	public List<DGNode> getNodes() {
+		return nodes;
+	}
+
+	public void setNodes(List<DGNode> nodes) {
+		this.nodes = nodes;
+	}
+
+	public DGNode getDGNodeById(int index) {
+		for (DGNode dgNode : nodes) {
+			if ((Integer) dgNode.getProperties().get("id") == index)
+				return dgNode;
+		}
+		return null;
 	}
 }
