@@ -13,37 +13,11 @@
  * limitations under the License.
  */
 
-package it.uniroma2.sag.kelp.input.parser.model;
+package it.uniroma2.sag.kelp.input.tree.generators;
 
-import java.util.List;
-import java.util.Map;
+import it.uniroma2.sag.kelp.input.parser.model.DGRelation;
+import it.uniroma2.sag.kelp.input.parser.model.DependencyGraph;
 
-public class DGRelation {
-	private DGNode source;
-	private DGNode target;
-	private Map<String, Object> properties;
-
-	public DGNode getSource() {
-		return source;
-	}
-
-	public void setSource(DGNode source) {
-		this.source = source;
-	}
-
-	public DGNode getTarget() {
-		return target;
-	}
-
-	public void setTarget(DGNode target) {
-		this.target = target;
-	}
-
-	public Map<String, Object> getProperties() {
-		return properties;
-	}
-
-	public void setProperties(Map<String, Object> properties) {
-		this.properties = properties;
-	}
+public interface SyntLabelGenerator {
+	public String getLabelOf(DGRelation r, DependencyGraph g);
 }

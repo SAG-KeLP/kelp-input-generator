@@ -18,7 +18,7 @@ package it.uniroma2.sag.kelp.input.tree.generators;
 import it.uniroma2.sag.kelp.input.parser.model.DGRelation;
 import it.uniroma2.sag.kelp.input.parser.model.DependencyGraph;
 
-public class RelationNameLabelGenerator implements RelationLabelGenerator {
+public class RelationNameLabelGenerator implements SyntLabelGenerator {
 
 	@Override
 	public String getLabelOf(DGRelation r, DependencyGraph g) {

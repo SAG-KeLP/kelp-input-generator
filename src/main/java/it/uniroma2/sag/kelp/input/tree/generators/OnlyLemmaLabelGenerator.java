@@ -13,37 +13,22 @@
  * limitations under the License.
  */
 
-package it.uniroma2.sag.kelp.input.parser.model;
+package it.uniroma2.sag.kelp.input.tree.generators;
 
-import java.util.List;
-import java.util.Map;
+import it.uniroma2.sag.kelp.input.parser.model.DGNode;
+import it.uniroma2.sag.kelp.input.parser.model.DependencyGraph;
 
-public class DGRelation {
-	private DGNode source;
-	private DGNode target;
-	private Map<String, Object> properties;
+public class OnlyLemmaLabelGenerator implements LexicalLabelGenerator {
 
-	public DGNode getSource() {
-		return source;
+	@Override
+	public String getLemmaLabelOf(DGNode n, DependencyGraph g) {
+		String lemma = (String) n.getProperties().get("lemma");
+		return lemma.toLowerCase();
 	}
 
-	public void setSource(DGNode source) {
-		this.source = source;
+	@Override
+	public String getPosLabelOf(DGNode n, DependencyGraph g) {
+		return "";
 	}
 
-	public DGNode getTarget() {
-		return target;
-	}
-
-	public void setTarget(DGNode target) {
-		this.target = target;
-	}
-
-	public Map<String, Object> getProperties() {
-		return properties;
-	}
-
-	public void setProperties(Map<String, Object> properties) {
-		this.properties = properties;
-	}
 }

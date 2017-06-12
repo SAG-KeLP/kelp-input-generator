@@ -15,6 +15,7 @@
 
 package it.uniroma2.sag.kelp.input.parser.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DependencyGraph {
@@ -79,5 +80,14 @@ public class DependencyGraph {
 				return dgNode;
 		}
 		return null;
+	}
+
+	public List<DGRelation> getRelationsWithSource(DGNode targetNode) {
+		List<DGRelation> ret = new ArrayList<DGRelation>();
+		for (DGRelation dgRelation : relations) {
+			if (dgRelation.getSource() != null && dgRelation.getSource().equals(targetNode))
+				ret.add(dgRelation);
+		}
+		return ret;
 	}
 }

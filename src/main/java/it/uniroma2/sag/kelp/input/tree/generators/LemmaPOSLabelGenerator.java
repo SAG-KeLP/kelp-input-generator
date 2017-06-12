@@ -18,13 +18,18 @@ package it.uniroma2.sag.kelp.input.tree.generators;
 import it.uniroma2.sag.kelp.input.parser.model.DGNode;
 import it.uniroma2.sag.kelp.input.parser.model.DependencyGraph;
 
-public class LemmaPOSLabelGenerator implements NodeLabelGenerator {
+public class LemmaPOSLabelGenerator implements LexicalLabelGenerator {
 
 	@Override
-	public String getLabelOf(DGNode n, DependencyGraph g) {
+	public String getLemmaLabelOf(DGNode n, DependencyGraph g) {
 		String lemma = (String) n.getProperties().get("lemma");
+		return lemma.toLowerCase();
+	}
+
+	@Override
+	public String getPosLabelOf(DGNode n, DependencyGraph g) {
 		String pos = (String) n.getProperties().get("pos");
-		return lemma+"#"+pos;
+		return pos.toLowerCase();
 	}
 
 }
