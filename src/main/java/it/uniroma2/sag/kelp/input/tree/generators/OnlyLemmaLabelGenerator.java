@@ -18,7 +18,7 @@ package it.uniroma2.sag.kelp.input.tree.generators;
 import it.uniroma2.sag.kelp.input.parser.model.DGNode;
 import it.uniroma2.sag.kelp.input.parser.model.DependencyGraph;
 
-public class OnlyLemmaLabelGenerator implements LexicalLabelGenerator {
+public class OnlyLemmaLabelGenerator implements LexicalElementLabelGenerator {
 
 	@Override
 	public String getLemmaLabelOf(DGNode n, DependencyGraph g) {

@@ -18,7 +18,7 @@ package it.uniroma2.sag.kelp.input.tree.generators;
 import it.uniroma2.sag.kelp.input.parser.model.DGNode;
 import it.uniroma2.sag.kelp.input.parser.model.DependencyGraph;
 
-public interface IntermediateNodeLabelGenerator {
+public interface LexicalElementLabelGenerator {
 	public String getLemmaLabelOf(DGNode n, DependencyGraph g);
 	public String getPosLabelOf(DGNode n, DependencyGraph g);
 }

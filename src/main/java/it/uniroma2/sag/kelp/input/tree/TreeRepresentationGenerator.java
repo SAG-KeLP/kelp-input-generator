@@ -25,13 +25,13 @@ import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
 import it.uniroma2.sag.kelp.input.parser.model.DGNode;
 import it.uniroma2.sag.kelp.input.parser.model.DGRelation;
 import it.uniroma2.sag.kelp.input.parser.model.DependencyGraph;
-import it.uniroma2.sag.kelp.input.tree.generators.IntermediateNodeLabelGenerator;
-import it.uniroma2.sag.kelp.input.tree.generators.LexicalLabelGenerator;
-import it.uniroma2.sag.kelp.input.tree.generators.SyntLabelGenerator;
+import it.uniroma2.sag.kelp.input.tree.generators.LexicalElementLabelGenerator;
+import it.uniroma2.sag.kelp.input.tree.generators.PosElementLabelGenerator;
+import it.uniroma2.sag.kelp.input.tree.generators.SyntElementLabelGenerator;
 
 public class TreeRepresentationGenerator {
-	public static TreeRepresentation grctGenerator(DependencyGraph g, SyntLabelGenerator rg, LexicalLabelGenerator ng,
-			IntermediateNodeLabelGenerator ig) {
+	public static TreeRepresentation grctGenerator(DependencyGraph g, SyntElementLabelGenerator rg,
+			LexicalElementLabelGenerator ng, PosElementLabelGenerator ig) {
 		DGNode target = g.getRoot().getTarget();
 		int id = 1;
 		TreeNode targetKelp = getKelpNode(id, target, null, rg, ng, g);
@@ -40,15 +40,15 @@ public class TreeRepresentationGenerator {
 		return representation;
 	}
 
-	private static TreeNode getKelpNode(int id, DGNode target, TreeNode father, SyntLabelGenerator rg,
-			LexicalLabelGenerator ng, DependencyGraph g) {
+	private static TreeNode getKelpNode(int id, DGNode target, TreeNode father, SyntElementLabelGenerator rg,
+			LexicalElementLabelGenerator ng, DependencyGraph g) {
 		return new TreeNode(id, new LexicalStructureElement(ng.getLemmaLabelOf(target, g), ng.getPosLabelOf(target, g)),
 				father);
 	}
 
 	private static TreeNode generateGrctRepresentation(DGNode target, TreeNode targetKelpNode, DGRelation r,
-			DependencyGraph g, SyntLabelGenerator rg, LexicalLabelGenerator ng, IntermediateNodeLabelGenerator ig,
-			int id) {
+			DependencyGraph g, SyntElementLabelGenerator rg, LexicalElementLabelGenerator ng,
+			PosElementLabelGenerator ig, int id) {
 		ArrayList<TreeNode> rootChildren = new ArrayList<TreeNode>();
 		if (g.getRelationsWithSource(target).isEmpty()) {
 			ArrayList<TreeNode> posChildren = new ArrayList<TreeNode>();
@@ -103,12 +103,14 @@ public class TreeRepresentationGenerator {
 		return root;
 	}
 
-	public static TreeRepresentation loctGenerator(DependencyGraph g, SyntLabelGenerator rg, LexicalLabelGenerator ng) {
+	public static TreeRepresentation loctGenerator(DependencyGraph g, SyntElementLabelGenerator rg,
+			LexicalElementLabelGenerator ng, PosElementLabelGenerator ig) {
 		// TODO implement
 		return null;
 	}
 
-	public static TreeRepresentation lctGenerator(DependencyGraph g, SyntLabelGenerator rg, LexicalLabelGenerator ng) {
+	public static TreeRepresentation lctGenerator(DependencyGraph g, SyntElementLabelGenerator rg,
+			LexicalElementLabelGenerator ng, PosElementLabelGenerator ig) {
 		// TODO implement
 		return null;
 	}
