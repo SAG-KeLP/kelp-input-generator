@@ -40,12 +40,6 @@ public class TreeRepresentationGenerator {
 		return representation;
 	}
 
-	private static TreeNode getKelpNode(int id, DGNode target, TreeNode father, SyntElementLabelGenerator rg,
-			LexicalElementLabelGenerator ng, DependencyGraph g) {
-		return new TreeNode(id, new LexicalStructureElement(ng.getLemmaLabelOf(target, g), ng.getPosLabelOf(target, g)),
-				father);
-	}
-
 	private static TreeNode generateGrctRepresentation(DGNode target, TreeNode targetKelpNode, DGRelation r,
 			DependencyGraph g, SyntElementLabelGenerator rg, LexicalElementLabelGenerator ng,
 			PosElementLabelGenerator ig, int id) {
@@ -99,19 +93,66 @@ public class TreeRepresentationGenerator {
 
 		TreeNode root = new TreeNode(id++, new SyntacticStructureElement(rg.getLabelOf(r, g)), targetKelpNode);
 		root.setChildren(rootChildren);
-
 		return root;
 	}
 
 	public static TreeRepresentation loctGenerator(DependencyGraph g, SyntElementLabelGenerator rg,
 			LexicalElementLabelGenerator ng, PosElementLabelGenerator ig) {
-		// TODO implement
-		return null;
+		DGNode target = g.getRoot().getTarget();
+		int id = 1;
+		TreeNode targetKelp = getKelpNode(id, target, null, rg, ng, g);
+		TreeNode res = generateLoctRepresentation(target, targetKelp, g.getRoot(), g, rg, ng, ig, id++);
+		TreeRepresentation representation = new TreeRepresentation(res);
+		return representation;
+	}
+
+	private static TreeNode generateLoctRepresentation(DGNode target, TreeNode targetKelp, DGRelation root,
+			DependencyGraph g, SyntElementLabelGenerator rg, LexicalElementLabelGenerator ng,
+			PosElementLabelGenerator ig, int id) {
+		ArrayList<TreeNode> children = new ArrayList<TreeNode>();
+		for (DGRelation relation : g.getRelationsWithSource(target)) {
+			DGNode child = relation.getTarget();
+			TreeNode childKelp = getKelpNode(id++, child, targetKelp, rg, ng, g);
+			children.add(generateLoctRepresentation(child, childKelp, relation, g, rg, ng, ig, id));
+		}
+
+		TreeNode rootNode = new TreeNode(id++,
+				new LexicalStructureElement(ng.getLemmaLabelOf(target, g), ng.getPosLabelOf(target, g)), targetKelp);
+		rootNode.setChildren(children);
+
+		return rootNode;
 	}
 
 	public static TreeRepresentation lctGenerator(DependencyGraph g, SyntElementLabelGenerator rg,
 			LexicalElementLabelGenerator ng, PosElementLabelGenerator ig) {
-		// TODO implement
-		return null;
+		DGNode target = g.getRoot().getTarget();
+		int id = 1;
+		TreeNode targetKelp = getKelpNode(id, target, null, rg, ng, g);
+		TreeNode res = generateLctRepresentation(target, targetKelp, g.getRoot(), g, rg, ng, ig, id++);
+		TreeRepresentation representation = new TreeRepresentation(res);
+		return representation;
+	}
+
+	private static TreeNode generateLctRepresentation(DGNode target, TreeNode targetKelp, DGRelation root,
+			DependencyGraph g, SyntElementLabelGenerator rg, LexicalElementLabelGenerator ng,
+			PosElementLabelGenerator ig, int id) {
+		ArrayList<TreeNode> children = new ArrayList<TreeNode>();
+		for (DGRelation relation : g.getRelationsWithSource(target)) {
+			DGNode child = relation.getTarget();
+			TreeNode childKelp = getKelpNode(id++, child, targetKelp, rg, ng, g);
+			children.add(generateLctRepresentation(child, childKelp, relation, g, rg, ng, ig, id));
+		}
+		children.add(new TreeNode(id++, new PosStructureElement(ig.getPosLabelOf(target, g)), targetKelp));
+		children.add(new TreeNode(id++, new SyntacticStructureElement(rg.getLabelOf(root, g)), targetKelp));
+		TreeNode rootNode = new TreeNode(id++,
+				new LexicalStructureElement(ng.getLemmaLabelOf(target, g), ng.getPosLabelOf(target, g)), targetKelp);
+		rootNode.setChildren(children);
+		return rootNode;
+	}
+
+	private static TreeNode getKelpNode(int id, DGNode target, TreeNode father, SyntElementLabelGenerator rg,
+			LexicalElementLabelGenerator ng, DependencyGraph g) {
+		return new TreeNode(id, new LexicalStructureElement(ng.getLemmaLabelOf(target, g), ng.getPosLabelOf(target, g)),
+				father);
 	}
 }
