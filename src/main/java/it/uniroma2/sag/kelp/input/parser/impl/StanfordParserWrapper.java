@@ -14,6 +14,11 @@
  */
 package it.uniroma2.sag.kelp.input.parser.impl;
 
+import it.uniroma2.sag.kelp.input.parser.DependencyParser;
+import it.uniroma2.sag.kelp.input.parser.model.DGNode;
+import it.uniroma2.sag.kelp.input.parser.model.DGRelation;
+import it.uniroma2.sag.kelp.input.parser.model.DependencyGraph;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -35,10 +40,6 @@ import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations.CollapsedCCProcess
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations.CollapsedDependenciesAnnotation;
 import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 import edu.stanford.nlp.util.CoreMap;
-import it.uniroma2.sag.kelp.input.parser.DependencyParser;
-import it.uniroma2.sag.kelp.input.parser.model.DGNode;
-import it.uniroma2.sag.kelp.input.parser.model.DGRelation;
-import it.uniroma2.sag.kelp.input.parser.model.DependencyGraph;
 
 public class StanfordParserWrapper implements DependencyParser {
 	protected StanfordCoreNLP pipeline;
@@ -101,7 +102,8 @@ public class StanfordParserWrapper implements DependencyParser {
 			dependencies = sentence.get(CollapsedDependenciesAnnotation.class);
 			break;
 		case COLLAPSED_CCPROCESSED:
-			dependencies = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
+			dependencies = sentence
+					.get(CollapsedCCProcessedDependenciesAnnotation.class);
 			break;
 		default:
 			dependencies = sentence.get(BasicDependenciesAnnotation.class);
@@ -120,7 +122,8 @@ public class StanfordParserWrapper implements DependencyParser {
 			for (IndexedWord par : parentsTmp) {
 				SemanticGraphEdge edge = dependencies.getEdge(par, node);
 				DGNode parent = graph.getDGNodeById(edge.getGovernor().index());
-				if (parent.getProperties().get("id") != child.getProperties().get("id"))
+				if (parent.getProperties().get("id") != child.getProperties()
+						.get("id"))
 					parents.add(par);
 			}
 
@@ -134,11 +137,14 @@ public class StanfordParserWrapper implements DependencyParser {
 				while (it.hasNext()) {
 					IndexedWord par = it.next();
 					SemanticGraphEdge edge = dependencies.getEdge(par, node);
-					DGNode parent = graph.getDGNodeById(edge.getGovernor().index());
+					DGNode parent = graph.getDGNodeById(edge.getGovernor()
+							.index());
 
 					relation.setSource(parent);
-					relation.getProperties().put("fromId", parent.getProperties().get("id"));
-					relation.getProperties().put("type", edge.getRelation().toString());
+					relation.getProperties().put("fromId",
+							parent.getProperties().get("id"));
+					relation.getProperties().put("type",
+							edge.getRelation().toString());
 				}
 			}
 			relations.add(relation);

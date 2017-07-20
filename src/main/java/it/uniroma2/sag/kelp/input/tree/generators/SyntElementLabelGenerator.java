@@ -19,5 +19,11 @@ import it.uniroma2.sag.kelp.input.parser.model.DGRelation;
 import it.uniroma2.sag.kelp.input.parser.model.DependencyGraph;
 
 public interface SyntElementLabelGenerator {
+	/**
+	 * Method to get the label to be associated to a SyntacticStructureElement of KeLP.
+	 * @param r the relation from which extract the information.
+	 * @param g the graph to which the relation belongs.
+	 * @return the label.
+	 */
 	public String getLabelOf(DGRelation r, DependencyGraph g);
 }

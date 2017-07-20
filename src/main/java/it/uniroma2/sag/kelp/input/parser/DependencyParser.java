@@ -17,8 +17,27 @@ package it.uniroma2.sag.kelp.input.parser;
 
 import it.uniroma2.sag.kelp.input.parser.model.DependencyGraph;
 
+/**
+ * Interface for a Dependency Parser.
+ */
 public interface DependencyParser {
+	/**
+	 * Method intended to initialize the parser.
+	 */
 	public void initialize();
+	
+	/**
+	 * Method intended to finalize the parser.
+	 * @throws Throwable
+	 */
 	public void finalize() throws Throwable;
+	
+	/**
+	 * Method to parse a sentence.
+	 * 
+	 * @param sentence The sentence to be parsed.
+	 * @return an instance of a DependencyGraph object representing the graph of 
+	 * dependencies associated to the sentence.
+	 */
 	public DependencyGraph parse(String sentence);
 }

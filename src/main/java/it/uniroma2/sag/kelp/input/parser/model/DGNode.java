@@ -17,13 +17,24 @@ package it.uniroma2.sag.kelp.input.parser.model;
 
 import java.util.Map;
 
+/**
+ * This class models a node in a dependency graph. It is made of a Map<String, Object> that is meant to contain
+ * all the information associated to this node (e.g, surface, lemma, part of speech).
+ */
 public class DGNode {
 	private Map<String, Object> properties;
 
+	/**
+	 * @return the properties associated to this node.
+	 */
 	public Map<String, Object> getProperties() {
 		return properties;
 	}
 
+	/**
+	 * Set the properties associated to this node.
+	 * @param properties
+	 */
 	public void setProperties(Map<String, Object> properties) {
 		this.properties = properties;
 	}

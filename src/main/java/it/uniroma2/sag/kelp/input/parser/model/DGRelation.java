@@ -15,34 +15,59 @@
 
 package it.uniroma2.sag.kelp.input.parser.model;
 
-import java.util.List;
 import java.util.Map;
 
+/**
+ * This class models a relation in a dependency graph. It is made of a source and target nodes, modeling
+ * respectively the source of a dependency relation and its target.
+ * Properties associated to this relation (e.g., dependency type) must be added to the properties map.
+ */
 public class DGRelation {
 	private DGNode source;
 	private DGNode target;
 	private Map<String, Object> properties;
 
+	/**
+	 * @return the source node in this relation.
+	 */
 	public DGNode getSource() {
 		return source;
 	}
 
+	/**
+	 * Set the source node in this relation.
+	 * @param source
+	 */
 	public void setSource(DGNode source) {
 		this.source = source;
 	}
 
+	/**
+	 * @return the target node in this relation.
+	 */
 	public DGNode getTarget() {
 		return target;
 	}
 
+	/**
+	 * Set the target node in this relation.
+	 * @param target
+	 */
 	public void setTarget(DGNode target) {
 		this.target = target;
 	}
 
+	/**
+	 * @return the properties map associated to this relation.
+	 */
 	public Map<String, Object> getProperties() {
 		return properties;
 	}
 
+	/**
+	 * Set the properties map associated to this relation.
+	 * @param properties
+	 */
 	public void setProperties(Map<String, Object> properties) {
 		this.properties = properties;
 	}

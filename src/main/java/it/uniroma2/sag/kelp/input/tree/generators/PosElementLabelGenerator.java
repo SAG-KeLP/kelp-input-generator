@@ -19,5 +19,11 @@ import it.uniroma2.sag.kelp.input.parser.model.DGNode;
 import it.uniroma2.sag.kelp.input.parser.model.DependencyGraph;
 
 public interface PosElementLabelGenerator {
+	/**
+	 * Method to get the label to be associated to the pos in a PosStructureElement of KeLP.
+	 * @param n the node from which extract the information.
+	 * @param g the graph to which the node belongs.
+	 * @return the pos label.
+	 */
 	public String getPosLabelOf(DGNode n, DependencyGraph g);
 }

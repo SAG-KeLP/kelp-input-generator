@@ -30,6 +30,16 @@ import it.uniroma2.sag.kelp.input.tree.generators.PosElementLabelGenerator;
 import it.uniroma2.sag.kelp.input.tree.generators.SyntElementLabelGenerator;
 
 public class TreeRepresentationGenerator {
+	/**
+	 * Method that transform a DependencyGraph in a KeLP object TreeRepresentation modeling a GRCT Tree.
+	 * 
+	 * @param g the dependency graph to be transformed.
+	 * @param rg the label generator for SyntacticStructureElement.
+	 * @param ng the label generator for LexicalStructureElement.
+	 * @param ig the label generator for PosStructureElement.
+	 * 
+	 * @return a TreeRepresentation.
+	 */
 	public static TreeRepresentation grctGenerator(DependencyGraph g, SyntElementLabelGenerator rg,
 			LexicalElementLabelGenerator ng, PosElementLabelGenerator ig) {
 		DGNode target = g.getRoot().getTarget();
@@ -96,6 +106,16 @@ public class TreeRepresentationGenerator {
 		return root;
 	}
 
+	/**
+	 * Method that transform a DependencyGraph in a KeLP object TreeRepresentation modeling a LOCT Tree.
+	 * 
+	 * @param g the dependency graph to be transformed.
+	 * @param rg the label generator for SyntacticStructureElement.
+	 * @param ng the label generator for LexicalStructureElement.
+	 * @param ig the label generator for PosStructureElement.
+	 * 
+	 * @return a TreeRepresentation.
+	 */
 	public static TreeRepresentation loctGenerator(DependencyGraph g, SyntElementLabelGenerator rg,
 			LexicalElementLabelGenerator ng, PosElementLabelGenerator ig) {
 		DGNode target = g.getRoot().getTarget();
@@ -123,6 +143,16 @@ public class TreeRepresentationGenerator {
 		return rootNode;
 	}
 
+	/**
+	 * Method that transform a DependencyGraph in a KeLP object TreeRepresentation modeling a LCT Tree.
+	 * 
+	 * @param g the dependency graph to be transformed.
+	 * @param rg the label generator for SyntacticStructureElement.
+	 * @param ng the label generator for LexicalStructureElement.
+	 * @param ig the label generator for PosStructureElement.
+	 * 
+	 * @return a TreeRepresentation.
+	 */
 	public static TreeRepresentation lctGenerator(DependencyGraph g, SyntElementLabelGenerator rg,
 			LexicalElementLabelGenerator ng, PosElementLabelGenerator ig) {
 		DGNode target = g.getRoot().getTarget();
