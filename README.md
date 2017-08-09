@@ -116,7 +116,7 @@ Then, the [Maven][maven-site] dependency for the kelp-input-generator project is
 <dependency>
     <groupId>it.uniroma2.sag.kelp</groupId>
     <artifactId>kelp-input-generator</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
 </dependency>
 ```
 
