@@ -17,6 +17,7 @@ package it.uniroma2.sag.kelp.input.tree;
 
 import java.util.ArrayList;
 
+import it.uniroma2.sag.kelp.data.representation.structure.CompositionalStructureElement;
 import it.uniroma2.sag.kelp.data.representation.structure.LexicalStructureElement;
 import it.uniroma2.sag.kelp.data.representation.structure.PosStructureElement;
 import it.uniroma2.sag.kelp.data.representation.structure.SyntacticStructureElement;
@@ -30,6 +31,104 @@ import it.uniroma2.sag.kelp.input.tree.generators.PosElementLabelGenerator;
 import it.uniroma2.sag.kelp.input.tree.generators.SyntElementLabelGenerator;
 
 public class TreeRepresentationGenerator {
+	
+	/**
+	 * Method that transform a DependencyGraph in a KeLP object TreeRepresentation modeling a Compositional 
+	 * GRCT Tree.
+	 * 
+	 * @param g the dependency graph to be transformed.
+	 * @param rg the label generator for SyntacticStructureElement.
+	 * @param ng the label generator for LexicalStructureElement.
+	 * @param ig the label generator for PosStructureElement.
+	 * 
+	 * @return a TreeRepresentation.
+	 */
+	public static TreeRepresentation cgrctGenerator(DependencyGraph g, SyntElementLabelGenerator rg,
+			LexicalElementLabelGenerator ng, PosElementLabelGenerator ig) {
+		DGNode target = g.getRoot().getTarget();
+		int id = 1;
+		TreeNode targetKelp = getKelpNode(id, target, null, rg, ng, g);
+		TreeNode res = generateCompositionalGrctRepresentation(target, targetKelp, g.getRoot(), g, rg, ng, ig, id++);
+		TreeRepresentation representation = new TreeRepresentation(res);
+		return representation; 
+	}
+	
+
+	private static TreeNode generateCompositionalGrctRepresentation(DGNode target, TreeNode targetKelpNode,
+			DGRelation r, DependencyGraph g, SyntElementLabelGenerator rg, LexicalElementLabelGenerator ng,
+			PosElementLabelGenerator ig, int id) {
+		ArrayList<TreeNode> rootChildren = new ArrayList<TreeNode>();
+		if (g.getRelationsWithSource(target).isEmpty()) {
+			ArrayList<TreeNode> posChildren = new ArrayList<TreeNode>();
+			posChildren.add(new TreeNode(id++, new LexicalStructureElement(ng.getLemmaLabelOf(target, g),
+					ng.getPosLabelOf(target, g).substring(0, 1)), targetKelpNode));
+
+			TreeNode tmp = new TreeNode(id++, new PosStructureElement(ig.getPosLabelOf(target, g)), targetKelpNode);
+			tmp.setChildren(posChildren);
+			rootChildren.add(tmp);
+		} else {
+			boolean printedRootNode = false;
+
+			for (DGRelation relation : g.getRelationsWithSource(target)) {
+				DGNode childNode = relation.getTarget();
+
+				if (!printedRootNode && (Integer) childNode.getProperties().get("start") > (Integer) target
+						.getProperties().get("start")) {
+					ArrayList<TreeNode> posChildren = new ArrayList<TreeNode>();
+					posChildren.add(new TreeNode(id++,
+							new LexicalStructureElement(ng.getLemmaLabelOf(target, g), ng.getPosLabelOf(target, g)),
+							targetKelpNode));
+					TreeNode tmp = new TreeNode(id++, new PosStructureElement(ig.getPosLabelOf(target, g)),
+							targetKelpNode);
+					tmp.setChildren(posChildren);
+					rootChildren.add(tmp);
+
+					printedRootNode = true;
+
+				}
+				if (childNode.equals(target)) {
+					return null;
+				}
+
+				TreeNode childNoneKelp = getKelpNode(id++, childNode, targetKelpNode, rg, ng, g);
+				rootChildren.add(generateCompositionalGrctRepresentation(childNode, childNoneKelp, relation, g, rg, ng, ig, id));
+			}
+			if (!printedRootNode) {
+				// Print pos-lexical info
+				ArrayList<TreeNode> posChildren = new ArrayList<TreeNode>();
+				posChildren.add(new TreeNode(id++,
+						new LexicalStructureElement(ng.getLemmaLabelOf(target, g), ng.getPosLabelOf(target, g)),
+						targetKelpNode));
+				TreeNode tmp = new TreeNode(id++, new PosStructureElement(ig.getPosLabelOf(target, g)), targetKelpNode);
+				tmp.setChildren(posChildren);
+				rootChildren.add(tmp);
+			}
+		}
+
+		DGNode headNode = r.getSource();
+		DGNode modifierNode = r.getTarget();
+
+		LexicalStructureElement head = null;
+		if (headNode == null) {
+			head = new LexicalStructureElement("*", "*");
+		} else {
+			head = new LexicalStructureElement(ng.getLemmaLabelOf(headNode, g), ng.getPosLabelOf(headNode, g));
+		}
+
+		LexicalStructureElement modifier = new LexicalStructureElement(ng.getLemmaLabelOf(modifierNode, g),
+				ng.getPosLabelOf(modifierNode, g));
+
+		String dependencyRelation = rg.getLabelOf(r, g);
+
+		CompositionalStructureElement compositionalStructureElement = new CompositionalStructureElement(
+				dependencyRelation, head, modifier);
+
+		TreeNode root = new TreeNode(id++, compositionalStructureElement, targetKelpNode);
+		root.setChildren(rootChildren);
+		return root;
+	}
+	
+	
 	/**
 	 * Method that transform a DependencyGraph in a KeLP object TreeRepresentation modeling a GRCT Tree.
 	 * 
