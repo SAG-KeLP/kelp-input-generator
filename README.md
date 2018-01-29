@@ -13,11 +13,9 @@ For example, replacing the StanfordParser is supported by writing only a new Jav
 
 This module is released as open source software under the Apache 2.0 license and the source code is available on [Github][github].
 
-**Usage Examples**
+**Usage Examples**: A detailed example can be found in the package [it.uniroma2.sag.kelp.input.main][example-package-site]
 
-A detailed example can be found in the package [it.uniroma2.sag.kelp.input.main][example-package-site]
-
-Examples on how to generate dependency graphs tree representations are contained in the unit tests of the project, in the package: [it.uniroma2.sag.kelp.tree][test-package-site]
+Further examples on how to generate dependency graphs tree representations are contained in the unit tests of the project, in the package: [it.uniroma2.sag.kelp.tree][test-package-site]
 For example, let us assume we need to generate a GRCT representation of the sentence "The cat runs over the grass.".
 
 The following code snippet will do the job:
