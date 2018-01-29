@@ -15,6 +15,8 @@ This module is released as open source software under the Apache 2.0 license and
 
 **Usage Examples**
 
+A detailed example can be found in the package [it.uniroma2.sag.kelp.input.main][example-package-site]
+
 Examples on how to generate dependency graphs tree representations are contained in the unit tests of the project, in the package: [it.uniroma2.sag.kelp.tree][test-package-site]
 For example, let us assume we need to generate a GRCT representation of the sentence "The cat runs over the grass.".
 
@@ -149,6 +151,7 @@ If you find KeLP useful in your researches, please cite the following paper:
 [lexical-structure]: https://github.com/SAG-KeLP/kelp-additional-kernels/blob/master/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/SyntacticStructureElement.java "Lexical Structure Element"
 [lexical-label]: https://github.com/SAG-KeLP/kelp-input-generator/blob/master/src/main/java/it/uniroma2/sag/kelp/input/tree/generators/OnlyLemmaLabelGenerator.java "Lexical Label Generator"
 [test-package-site]: https://github.com/SAG-KeLP/kelp-input-generator/tree/master/src/test/java/it/uniroma2/sag/kelp/tree "Test Tree Generation"
+[example-package-site]: https://github.com/SAG-KeLP/kelp-input-generator/blob/master/src/main/java/it/uniroma2/sag/kelp/input/main "Tree Generation Examples"
 [stanford-parser]: https://nlp.stanford.edu/software/lex-parser.shtml "Stanford Parser"
 [sag-site]: http://sag.art.uniroma2.it "SAG site"
 [uniroma2-site]: http://www.uniroma2.it "University of Roma Tor Vergata"
