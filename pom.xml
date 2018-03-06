@@ -123,6 +123,21 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>it.uniroma2.sag.kelp.input.main.TreeRepresentationGeneratorMain</mainClass>
+						</manifest>
+					</archive>
+					<finalName>kelp-input-generator-${kelp.inputgen.version}</finalName>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<appendAssemblyId>false</appendAssemblyId>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
